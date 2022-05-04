@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:lang="http://www.springframework.org/schema/lang"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+		http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-4.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.2.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.2.xsd
+		http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-4.2.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd">
+
+
+	// 스프링 설정 파일 이름은 무엇이든 상관 없지만 <beans>를 루트 엘리먼트로 사용해야 한다.
+	
+	
+
+	// <import>엘리먼트는  트랜잭션 관리, 예외 처리, 다국어 처리 등 여러 설정을 할 때 기능별로 xml 파일을 나누는데 이렇게 분리한 설정 파일을 하나로 통합할 때 사용한다.
+	<import resource="context-datasource.xml"/>
+	<import resource="context-transaction.xml"/>
+	
+	
+	
+	// 스프링 설정 파일에 클래스를 등록하려면 <bean> 엘리먼트를 사용한다. 
+	<bean id="test" class="com.myproject.webapp.test.Test" init-method="initMethod" destroy-method="destroyMethod" lazy-init="true"
+		  scope(설정 안하면 singletonrk default)="singleton or prototype"></bean>
+	
+	
+	
+	// 의존성 주입 
+	// 생성자 인젝션
+	// 스프링 컨테이너는 xml 설정 파일에 등록된 클래스를 찾아서 객체를 생성할 때 기본적으로 매개변수가 없는 기본 생성자를 호출한다.
+	// 매개변수를 가지는 생성자를 호출하려면 생성자 인젝션을 사용한다.
+	// 아래 예시의 경우 SonySpeaker가 먼저 생성된 후 SamsungTV가 생성된다.
+	<bean id="tv" class="polymorphism.SamsungTV">
+		<constructor-arg ref="sony"></constructor-arg>
+		<constructor-arg value="27000"></constructor-arg>
+		
+		// 생성자 오버로딩이 되어있다면 헷갈릴 수 있기 때문에 인덱스도 사용 가능하다
+		<constructor-arg index="0" ref="sony"></constructor-arg>
+		<constructor-arg index="1" value="27000"></constructor-arg>
+	</bean>
+	<bean id="sony" class="polymorphism.SonySpeaker"></bean>
+	
+	
+	
+	// 세터 인젝션
+	// 코딩 컨벤션에 따라 보통 세터 인젝션을 사용한다.( 세터 메소드가 제공되지 않는 클래스에 대해서만 생성자 인젝션 사용 )
+	// 세터 메소드가 있어야 하고, bean 객체 생성 후에 세터 인젝션이 적용되므로 기본 생성자도 있어야 함
+	// name의 첫 글자를 대문자로 바꾸고 앞에 set을 붙인 메소드가 실행된다.
+	<bean id="tv" class="polymorphism.SamsungTV">
+		<property name="speaker" ref="sony"></property>  -> setSpeaker() 호출
+		<property name="price" value="27000"></property>
+	</bean>
+	<bean id="sony" class="polymorphism.SonySpeaker"></bean>
+	
+	
+	
+	// 세터 인젝션을 설정할 때  p네임스페이스를 이용할 수 있다.
+	// p네임스페이스는 별도의 schemaLocation이 없기 때문에 네임스페이스만 선언하면 된다.
+	<beans xmlns="http://www.springframework.org/schema/beans"
+		   ...
+		   xmlns:p="http://www.springframework.org/schema/p"
+		   ...
+		   xsi:schemaLocation="http://www.spring...">
+	
+	// p네임스페이스를 선언하면 다음과 같이 세터 인젝션이 가능하다
+	<bean id="tv" class="polymorphism.SamsungTV" p:speaker-ref="sony" p:price="27000"></bean>
+	<bean id="sony" class="polymorphism.SonySpeaker"></bean>
+	
+	
+	
+	// 배열, 컬렉션 객체 설정
+	// 배열, java.util.List 타입 객체 세터 인젝션( private List<String> addressList; 라고 가정)
+	<bean id="test" class="com.myproject.webapp.test.Test">
+		<property name="addressList">
+			<list>
+				<value>서울시 강남구 역삼동</value>
+				<value>서울시 성동구 행당동</value>
+			</list>
+		</property>
+	</bean>
+	
+	// java.util.Set 타입 객체 세터 인젝션( private Set<String> addressList; 라고 가정)
+	<bean id="test" class="com.myproject.webapp.test.Test">
+		<property name="addressList">
+			<set value-type="java.lang.String">
+				<value>서울시 강남구 역삼동</value>
+				<value>서울시 성동구 행당동</value>
+				<value>서울시 성동구 행당동</value> -> Set이라 저장 안 됨
+			</set>
+		</property>
+	</bean>
+	
+	// java.util.Map 타입 객체 세터 인젝션( private Map<String, Controller> addressList; 라고 가정)
+	<bean id="test" class="com.myproject.webapp.test.Test">
+		<property name="addressList">
+			<map>
+				<entry>
+					<key><value>고길동</value></key>
+					<value>서울시 강남구 역삼동</value>
+				</entry>
+				<entry>
+					<key><value>마이콜</value></key>
+					<value>서울시 성동구 성수동</value>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	
+	// java.util.Properties 타입 객체 세터 인젝션( private Properties addressList; 라고 가정)
+	// Properties는  key=value 형태의 데이터
+	<bean id="test" class="com.myproject.webapp.test.Test">
+		<property name="addressList">
+			<props>
+				<prop key="고길동">서울시 강남구 역삼동</prop>
+				<prop key="마이콜">서울시 성동구 성수동</prop>
+			</props>
+		</property>
+	</bean>
+	
+	
+	
+	// 어노테이션 설정을 위한 context 네임스페이스 및 스키마 문서 위치 등록, 컴포넌트 스캔 설정
+	<beans xmlns="http://www.springframework.org/schema/beans"
+		   ...
+		   xmlns:context="http://www.springframework.org/schema/context"
+		   ...
+		   xsi:schemaLocation="http://www.spring...
+		   					   http://www.springframework.org/schema/context 
+		   					   http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+	
+	// com.myproject.webapp 패키지 및 그 이하의 패키지 전부 적용 
+	<context:component-scan base-package="com.myproject.webapp"></context:component-scan>
+	
+	// 컴포넌트 스캔 설정을 하면  클래스 위에  @Component 어노테이션을 설정하면 스프링 컨테이너가 객체를 생성해준다. 당연히 기본 생성자가 있어야 한다.
+	// id를 설정하려면  @Component("tv")와 같이 설정해주면 되고, 지정하지 않으면 컨테이너가 자동으로 이름을 설정한다.( 이름 규칙은 클래스 이름의 첫 글자를 소문자로 변경한 것이다. )
+	
+	// 의존성 주입을 지원하는 어노테이션은 [@Autowired, @Qualifier](스프링에서 제공), @Inject, @Resource가 있다.
+	
+	// @Autowired는 생성자, 메소드, 멤버변수 위에 모두 사용 가능하지만 보통 멤버변수 위에 선언한다.
+	// 스프링 컨테이너는 멤버 변수 위에 붙은 @Autowired를 확인한 후 해당 변수의 타입을 체크하여 해당 타입 객체가 메모리에 존재하는지 확인 후 변수에 주입한다.
+	// 해당 객체가 메모리에 없다면 NoSuchBeanDefinitionException을 발생시킨다.
+	// 문제는 인터페이스 변수 위에 @Autowired가 있고, 메모리에 구현 클래스 객체가 여러 개 있을 때 발생한다.
+	// 이런 문제를 해결하기 위해 @Autowired와 @Qualifier("sony")를 같이 설정해준다.
+	// 참고로 어노테이션으로 주입하는 경우 세터메소드가 필요 없다.
+	@Component("tv")
+	public class LgTV implements TV {
+		@Autowired
+		@Qualifier("sony")
+		private Speaker speaker;
+		
+		public LgTV() { }
+	}
+	
+	// @Resource는 객체의 이름을 이용하여 의존성 주입을 처리한다. @Inject도 이름 기반의 의존성 주입을 한다.
+	@Component("tv")
+	public class LgTV implements TV {
+		@Resource(name="sony")
+		private Speaker speaker;
+		
+		public LgTV() { }
+	}
+	
+	
+	
+	// <bean> 엘리먼트 등록과 어노테이션을 적절히 사용해주면 좋다.
+	// 변경되지 않는 객체는 어노테이션으로 설정하고, 변경될 가능성이 있는 객체는  <bean> 엘리먼트로 설정한다.
+	// 참고로 라이브러리 형태로 제공되는 클래스는 xml 설정만 가능한다.
+	
+	
+	
+	// Presentation_And_Business_Layer.png 파일 확인
+	// 프레젠테이션 레이어는 사용자와의 커뮤니케이션을 담당하고, 비즈니스 레이어는 사용자의 요청에 대한 비즈니스 로직 처리를 담당한다.
+	// 이 구조에서 핵심은 Controller, ServiceImpl, DAO 클래스이다.
+	// Controller : 사용자 요청 제어,  ServiceImpl: 비즈니스 로직 처리,   DAO : DB연동
+	// 스프링 프레임워크에서는 이런 클래스들을 구분하기 위해  @Component를 상속한 3개의 어노테이션을 추가로 제공하고 각각 특별한 기능을 가지고 있다.
+	-------------------------------------------------------------------------
+	|    어노테이션		|        위치          	|                의미					|
+    -------------------------------------------------------------------------
+    | @Service		| XXXServiceImpl	| 비즈니스 로직을 처리하는 Service 클래스		|
+    -------------------------------------------------------------------------
+    | @Repository	| XXXDAO			| DB연동을 처리하는 DAO 클래스				|
+    -------------------------------------------------------------------------
+	| @Controller	| XXXController		| 사용자 요청을 제어하는 Controller 클래스		|
+	-------------------------------------------------------------------------
+	
+	
+	
+	// VO 클래스는 레이어와 레이어 사이에서 관련된 데이터를 한 번에 주고받을 목적으로 사용한다.
+	// 하나의 테이블마다 하나의 VO 클래스가 있고, 테이블이름 뒤에 VO 붙인다.
+	// 필드도 컬럼 이름과 타입에 맞게 private로 설정하고 게터/세터 메소드를 만들어주면 된다.
+	
+	
+	
+	// DAO 클래스는 DB 연동을 담당한다. CRUD 기능의 메소드를 구현하면 된다. @Repository("XXXDAO") 어노테이션을 지정해준다.
+	// CRUD 기능 메소드 이름은 기능+테이블명으로 지정한다.( insert, update, delete, get, getXXXList 등 )
+	
+	
+	
+	// DB 연동을 위해 JDBC 드라이버가 필요하다.
+	// oracle, mysql 관련 설정 찾아보기
+	
+	
+	 
+	// 서비스 인터페이스는 DAO 클래스에서  Alt+Shift+T를 눌러 쉽게 생성할 수 있다.
+	// 서비스 인터페이스를 구현한 서비스 XXXServiceImpl 클래스를 구현해준다.
+	// @Service("XXXService") 어노테이션을 지정해주고, 필드의  private XXXDAO xxxDAO; 를 @Autowired 어노테이션으로 지정해준다.
+	
+	
+	
+	
+	
+	
+	
+	
+
+</beans>
