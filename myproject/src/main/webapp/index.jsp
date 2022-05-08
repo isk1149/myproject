@@ -4,9 +4,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Main Page</title>
 </head>
 <body>
-index page
+<center>
+	<h1>게시판 프로그램</h1>
+	<hr>
+	<a href="login.do">로그인</a><br><br><br>
+	<a href="getBoardList.do">글 목록 바로가기</a>
+	<hr>
+</center>
 </body>
 </html>
