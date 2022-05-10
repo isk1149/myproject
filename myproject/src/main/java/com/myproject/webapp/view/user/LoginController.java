@@ -24,6 +24,9 @@ public class LoginController {
 	
 	@RequestMapping(value="/login.do", method=RequestMethod.POST)
 	public String login(UserVO vo, HttpSession session) {
+		if (vo.getId() == null || vo.getId().equals(""))
+			throw new IllegalArgumentException("아이디는 필수 입력입니다.");
+		
 		UserVO user = userService.getUser(vo);
 		if (user != null) {
 			session.setAttribute("userName", user.getName());
