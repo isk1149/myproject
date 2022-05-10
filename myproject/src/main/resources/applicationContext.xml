@@ -37,8 +37,13 @@
 	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
+	
+	<!-- JPA용 트랜잭션 관리자 -->
+	<bean id="jpaTxManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory"></property>
+	</bean>
 	 
-	<tx:advice id="txAdvice" transaction-manager="txManager">
+	<tx:advice id="txAdvice" transaction-manager="jpaTxManager">
 		<tx:attributes>
 			<tx:method name="get*" read-only="true"/>
 			<tx:method name="*"/>
@@ -46,8 +51,28 @@
 	</tx:advice> 
 	
 	<aop:config>
-		<aop:pointcut expression="execution( * com.myproject.webapp.biz..*(..) )" id="txPointcut"/>	
+		<aop:pointcut id="txPointcut" expression="execution( * com.myproject.webapp.biz..*(..) )"/>	
 		<aop:advisor pointcut-ref="txPointcut" advice-ref="txAdvice"/>
 	</aop:config>
+	
+	<!-- 스프링과 JPA 연동 설정 -->
+	<bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"></bean>
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="jpaVendorAdapter" ref="jpaVendorAdapter"></property>
+		<!-- 아래와 같이 추가 설정해주면 persistence.xml 파일이 없어도 됨. 
+		<property name="packagesToScan" value="com.myproject.webapp.biz.board"></property>
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.use_sql_comments">true</prop>
+				<prop key="hibernate.id.new_generator_mappings">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">create</prop>
+			</props>
+		</property>
+		-->
+	</bean>
 	
 </beans>
