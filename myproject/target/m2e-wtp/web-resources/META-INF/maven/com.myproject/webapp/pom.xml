@@ -81,6 +81,13 @@
 			<version>2.7.2</version>
 		</dependency>
 				
+		<!-- Oracle --> 
+		<dependency>
+			<groupId>com.oracle.database.jdbc</groupId>
+			<artifactId>ojdbc6</artifactId>
+			<version>11.2.0.4</version>
+		</dependency>
+		
 		<!-- AspectJ -->
 		<dependency>
 			<groupId>org.aspectj</groupId>
