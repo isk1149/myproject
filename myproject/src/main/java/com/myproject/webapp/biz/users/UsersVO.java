@@ -1,4 +1,4 @@
-package com.myproject.webapp.biz.user;
+package com.myproject.webapp.biz.users;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="USERS")
-public class UserVO {
+public class UsersVO {
 	@Id
 	@GeneratedValue
 	private String id;

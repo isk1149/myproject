@@ -1,4 +1,4 @@
-package com.myproject.webapp.biz.user.impl;
+package com.myproject.webapp.biz.users.impl;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -6,14 +6,14 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 
 import com.myproject.webapp.biz.board.BoardVO;
-import com.myproject.webapp.biz.user.UserVO;
+import com.myproject.webapp.biz.users.UsersVO;
 
 @Repository
-public class UserDAOJPA {
+public class UsersDAOJPA {
 	@PersistenceContext
 	private EntityManager em;
 	
-	public UserVO getUser(UserVO vo) {
-		return (UserVO) em.find(UserVO.class, vo.getId());
+	public UsersVO getUser(UsersVO vo) {
+		return (UsersVO) em.find(UsersVO.class, vo.getId());
 	}
 }

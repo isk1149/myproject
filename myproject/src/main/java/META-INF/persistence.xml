@@ -2,7 +2,7 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="myproject"> <!-- 영속성 유닛 -->
 		<class>com.myproject.webapp.biz.board.BoardVO</class> <!-- 엔티티 클래스 지정 -->
-		<class>com.myproject.webapp.biz.user.UserVO</class>
+		<class>com.myproject.webapp.biz.users.UsersVO</class>
 		<!-- JPA(Java Persistence API)는 모든 ORM(Object-Relation Mapping) 구현체(ORM 프레임워크)들의 공통 인터페이스를 제공한다. -->
 		
 		<properties>

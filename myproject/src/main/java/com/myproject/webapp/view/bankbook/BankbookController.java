@@ -14,7 +14,7 @@ public class BankbookController {
 	@RequestMapping("/bankbook.do")
 	public String getBankbook(BankbookVO vo, Model model, HttpSession session) {
 		if (session.getAttribute("userName") == null)
-			return "login.jsp";
+			return "/WEB-INF/view/login.jsp";
 		return "/WEB-INF/view/bankbook.jsp";
 	}
 }

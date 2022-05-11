@@ -1,4 +1,4 @@
-package com.myproject.webapp.biz.user.impl;
+package com.myproject.webapp.biz.users.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,18 +7,18 @@ import java.sql.ResultSet;
 import org.springframework.stereotype.Repository;
 
 import com.myproject.webapp.biz.common.JDBCUtil;
-import com.myproject.webapp.biz.user.UserVO;
+import com.myproject.webapp.biz.users.UsersVO;
 
 @Repository
-public class UserDAO {
+public class UsersDAO {
 	private Connection conn = null;
 	private PreparedStatement stmt = null;
 	private ResultSet rs = null;
 	
 	private final String USER_GET  ="select * from users where id= ? and password = ?";
 	
-	public UserVO getUser(UserVO vo) { 
-		UserVO user = null;
+	public UsersVO getUser(UsersVO vo) { 
+		UsersVO user = null;
 		try {
 			System.out.println("===> JDBC getUser()");
 			conn = JDBCUtil.getConnection();
@@ -27,7 +27,7 @@ public class UserDAO {
 			stmt.setString(2, vo.getPassword());
 			rs = stmt.executeQuery();
 			if (rs.next()) {
-				user = new UserVO();
+				user = new UsersVO();
 				user.setId(rs.getString("id"));
 				user.setPassword(rs.getString("password"));
 				user.setName(rs.getString("name"));
