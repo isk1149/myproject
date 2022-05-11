@@ -9,9 +9,9 @@
 <body>
 <center>
 <h1>글 등록</h1>
-<a href="logout.do">logout</a>
+<a href="logoutExample.do">logout</a>
 <hr>
-<form action="insertBoard.do" method="post" enctype="multipart/form-data">
+<form action="insertBoardExample.do" method="post" enctype="multipart/form-data">
 <table border="1" cellpadding="0" cellspacing="0">
 <tr>
 	<td bgcolor="orange" width="70">제목</td>
@@ -34,6 +34,7 @@
 </tr>
 </table>
 </form>
+<a href="getBoardListExample.do">글 목록</a>
 </center>
 </body>
 </html>

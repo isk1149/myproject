@@ -10,9 +10,9 @@
 <body>
 <center>
 <h1>글 상세</h1>
-<a href="logout.do">logout</a>
+<a href="logoutExample.do">logout</a>
 <hr>
-<form action="updateBoard.do" method="post">
+<form action="updateBoardExample.do" method="post">
 <input name="seq" type="hidden" value="${board.seq}"/>
 <table border="1" cellpadding="0" cellspacing="0">
 <tr>
@@ -41,9 +41,9 @@
 </table>
 </form>
 <hr>
-<a href="insertBoard.jsp">글 등록</a>&nbsp;&nbsp;&nbsp;
-<a href="deleteBoard.do?seq=${board.seq}">글 삭제</a>&nbsp;&nbsp;&nbsp;
-<a href="getBoardList.do">글 목록</a>
+<a href="insertBoardExample.jsp">글 등록</a>&nbsp;&nbsp;&nbsp;
+<a href="deleteBoardExample.do?seq=${board.seq}">글 삭제</a>&nbsp;&nbsp;&nbsp;
+<a href="getBoardListExample.do">글 목록</a>
 </center>
 </body>
 </html>

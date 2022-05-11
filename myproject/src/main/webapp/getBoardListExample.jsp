@@ -12,10 +12,10 @@
 <body>
 <center>
 <h1><spring:message code="message.board.list.mainTitle"/></h1>
-<h3>${userName}<spring:message code="message.board.list.welcomeMsg"/>..<a href="logout.do">logout</a></h3>
+<h3>${userName}<spring:message code="message.board.list.welcomeMsg"/>..<a href="logoutExample.do">logout</a></h3>
 
 <!-- 검색 시작 -->
-<form action="getBoardList.do" method="post">
+<form action="getBoardListExample.do" method="post">
 <table border="1" cellpadding="0" cellspacing="0" width="700">
 <tr>
 	<td align="right">
@@ -56,7 +56,7 @@
 <c:forEach items="${boardList}" var="board">
 <tr>
 	<td>${board.seq}</td>
-	<td align="left"><a href="getBoard.do?seq=${board.seq}">${board.title}</a></td>
+	<td align="left"><a href="getBoardExample.do?seq=${board.seq}">${board.title}</a></td>
 	<td>${board.writer}</td>
 	<td><fmt:formatDate value="${board.regDate}" pattern="yyyy-MM-dd"/></td><!-- ${board.regDate} -->
 	<td>${board.cnt}</td>
@@ -65,7 +65,7 @@
 
 </table>
 <br>
-<a href="insertBoard.jsp"><spring:message code="message.board.list.link.insertBoard"/></a>
+<a href="insertBoardExample.jsp"><spring:message code="message.board.list.link.insertBoard"/></a>
 </center>
 </body>
 </html>

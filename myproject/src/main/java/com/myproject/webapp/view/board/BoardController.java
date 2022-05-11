@@ -35,7 +35,7 @@ public class BoardController {
 	}
 	
 	//json
-	@RequestMapping("/dataTransformJson.do")
+	@RequestMapping("/dataTransformJsonExample.do")
 	@ResponseBody
 	public List<BoardVO> dataTransformJson(BoardVO vo) {
 		vo.setSearchCondition("title");
@@ -45,7 +45,7 @@ public class BoardController {
 	}
 	
 	// xml
-	@RequestMapping("/dataTransformXml.do")
+	@RequestMapping("/dataTransformXmlExample.do")
 	@ResponseBody
 	public BoardListVO dataTransformXml(BoardVO vo) {
 		vo.setSearchCondition("title");
@@ -56,7 +56,7 @@ public class BoardController {
 		return boardListVO;
 	}
 	
-	@RequestMapping("/insertBoard.do")
+	@RequestMapping("/insertBoardExample.do")
 	public String insertBoard(BoardVO vo) throws IOException {
 		MultipartFile uploadFile = vo.getUploadFile();
 		if (!uploadFile.isEmpty()) {
@@ -65,32 +65,32 @@ public class BoardController {
 		}
 		
 		boardService.insertBoard(vo);
-		return "getBoardList.do";
+		return "getBoardListExample.do";
 	}
 	
-	@RequestMapping("/updateBoard.do")
+	@RequestMapping("/updateBoardExample.do")
 	public String updateBoard(@ModelAttribute("board") BoardVO vo) {
 		boardService.updateBoard(vo);
-		return "getBoardList.do";
+		return "getBoardListExample.do";
 	}
 	
-	@RequestMapping("/deleteBoard.do")
+	@RequestMapping("/deleteBoardExample.do")
 	public String deleteBoard(BoardVO vo) {
 		boardService.deleteBoard(vo);
-		return "getBoardList.do";
+		return "getBoardListExample.do";
 	}
 	
-	@RequestMapping("/getBoard.do")
+	@RequestMapping("/getBoardExample.do")
 	public String getBoard(BoardVO vo, Model model) {
 		model.addAttribute("board", boardService.getBoard(vo));
-		return "getBoard.jsp";
+		return "getBoardExample.jsp";
 	}
 	
-	@RequestMapping("/getBoardList.do")
+	@RequestMapping("/getBoardListExample.do")
 	public String getBoardList(BoardVO vo, Model model) {
 		if (vo.getSearchCondition() == null) vo.setSearchCondition("title");
 		if (vo.getSearchKeyword() == null) vo.setSearchKeyword("");
 		model.addAttribute("boardList", boardService.getBoardList(vo));
-		return "getBoardList.jsp";
+		return "getBoardListExample.jsp";
 	}
 }
