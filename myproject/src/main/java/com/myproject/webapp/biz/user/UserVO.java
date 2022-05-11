@@ -1,6 +1,15 @@
 package com.myproject.webapp.biz.user;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="USERS")
 public class UserVO {
+	@Id
+	@GeneratedValue
 	private String id;
 	private String password;
 	private String name;

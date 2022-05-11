@@ -22,9 +22,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name="BOARD")
 public class BoardVO {
+	// [JPA] @Column(name="BOARD_TITLE", nullable=false, ...) : 엔티티 클래스의 변수와 테이블의 컬럼 이름이 다를 때 매핑할 수 있게 해줌.
 	@XmlAttribute
 	@Id
-	@GeneratedValue
+	@GeneratedValue // @GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private int seq;
 	private String title;
 	private String writer;
@@ -33,7 +34,7 @@ public class BoardVO {
 	private Date regDate;
 	private int cnt;
 	@XmlTransient
-	@Transient
+	@Transient // 매핑 제외
 	private String searchCondition;
 	@XmlTransient
 	@Transient

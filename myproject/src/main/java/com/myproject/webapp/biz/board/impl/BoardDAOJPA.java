@@ -11,7 +11,7 @@ import com.myproject.webapp.biz.board.BoardVO;
 
 @Repository
 public class BoardDAOJPA {
-	@PersistenceContext
+	@PersistenceContext // 스프링 컨테이너가 관리하는 EntityManager 객체 의존성 주입할 때 사용
 	private EntityManager em;
 	
 	public void insertBoard(BoardVO vo) {

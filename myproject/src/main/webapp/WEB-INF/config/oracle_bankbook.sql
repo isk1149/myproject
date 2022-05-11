@@ -1,6 +1,27 @@
 --------------------------------------------------------------------------------------------------------------
--- 기초 데이터 생성
+-- 게시판 예제 기초 데이터 생성
+create table USERS (
+	ID varchar2(8),
+	PASSWORD varchar2(8),
+	NAME varchar2(20),
+	ROLE varchar2(5),
+	constraint USERS_PK primary key (ID)
+);
 
+create table BOARD (
+	SEQ number(5),
+	TITLE varchar2(200),
+	WRITER varchar2(20),
+	CONTENT varchar2(2000),
+	REGDATE date default sysdate,
+	CNT number(5) default 0,
+	constraint BOARD_PK primary key (SEQ)
+);
+
+insert into users values ('test', 'test123', '관리자', 'Admin');
+insert into users values ('user1', 'user1', '홍길동', 'User');
+--------------------------------------------------------------------------------------------------------------
+-- 파킹통장 기초 데이터 생성
 create table BANK_TB (
 	BANK_CD varchar2(6),
 	BANK_NM varchar2(12) not null,

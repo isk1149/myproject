@@ -1,16 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-	<persistence-unit name="myprojectBoard">
-		<class>com.myproject.webapp.biz.board.BoardVO</class>
+	<persistence-unit name="myproject"> <!-- 영속성 유닛 -->
+		<class>com.myproject.webapp.biz.board.BoardVO</class> <!-- 엔티티 클래스 지정 -->
+		<class>com.myproject.webapp.biz.user.UserVO</class>
+		<!-- JPA(Java Persistence API)는 모든 ORM(Object-Relation Mapping) 구현체(ORM 프레임워크)들의 공통 인터페이스를 제공한다. -->
+		
 		<properties>
-			<!--  필수 속성  -->
-			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
-			<!--  옵션  -->
-			<property name="hibernate.show_sql" value="true"/>
-			<property name="hibernate.format_sql" value="true"/>
-			<property name="hibernate.use_sql_comments" value="false"/>
-			<property name="hibernate.id.new_generator_mappings" value="true"/>
-			<!-- <property name="hibernate.hbm2ddl.auto" value="create"/> -->
+			<!--  필수 속성   -->
+			<!-- DB 커넥션 설정. 스프링 프레임워크와 연동할 때는 DataSource가 스프링 설정 파일에 등록되어 있어서 필요 없음
+			<property name="javax.persistence.jdbc.driver" value="oracle.jdbc.driver.OracleDriver"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@127.0.0.1:1521:XE"/>
+			<property name="javax.persistence.jdbc.user" value="myproject"/>
+			<property name="javax.persistence.jdbc.password" value="myproject"/>
+			-->
+			<!-- JPA는 DBMS마다 최적화된 SQL을 제공하기 위해 Dialect 클래스를 제공한다. DBMS가 바뀌어도 Dialect 클래스를 변경하면 SQL도 그에 맞게 변경됨 -->
+			<!-- Libraries\Maven Dependencies\hibernate-core-5.1.0.Final.jar\org.hibernate.dialect에서 Dialect 클래스 확인 가능 -->
+			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect"/>
+			<!-- <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/> -->
+
+			<!--  JPA 구현체 관련 속성  -->
+			<property name="hibernate.show_sql" value="true"/><!-- 생성된 sql을 콘솔에 출력 -->
+			<property name="hibernate.format_sql" value="true"/><!-- sql 출력 시 일정한 포맷으로 출력 -->
+			<property name="hibernate.use_sql_comments" value="false"/><!-- sql에 포함된 주석도 출력 -->
+			<property name="hibernate.id.new_generator_mappings" value="true"/><!-- 새로운 키 생성 전략 사용 -->
+			<!-- <property name="hibernate.hbm2ddl.auto" value="create"/> --><!-- 테이블 생성이나 수정, 삭제 같은 ddl 구문 처리 방법 -->
 		</properties>
 	</persistence-unit>
 </persistence>

@@ -2024,6 +2024,71 @@
 	
 	
 	
+	// JPA는 persistence.xml 파일을 통해 설정이 이루어지고, persistence.xml 파일은 <persistence>를 루트 엘리먼트로 사용한다.
+	// 또한 persistence-unit(영속성유닛)과 관련된 다양한 정보를 설정한다.
+	
+	// 영속성 유닛은 연동할 데이터베이스당 하나씩 등록하고, 영속성 유닛에 설정된 이름은 나중에 EntityManagerFactory 객체 생성에 사용한다.
+	// EntityManagerFactory로 EntityManager를 얻을 수 있고, EntityManager로 DB 연동이 가능하다.
+	
+	// JPA 구현체 관련 속성 중 hibernate.htm2ddl.auto 설명
+	-----------------------------------------------------------------------------------------------------
+	|	속성값			|				설명																|
+	-----------------------------------------------------------------------------------------------------
+	| create			| 기본 테이블 drop 후 엔티티 클래스 매핑 정보를 참조하여 새 테이블 create								|
+	-----------------------------------------------------------------------------------------------------
+	| create-drop		| create 속성 기능 후 drop까지 함.														|
+	-----------------------------------------------------------------------------------------------------
+	| update			| 기존 사용 중인 테이블이 있으면 재사용. 단, 엔티티 클래스의 매핑 설정이 변경되면 변경된 내용만 alter로 반영		|
+	-----------------------------------------------------------------------------------------------------	
+
+	// @GeneratedValue(strategy=GenerationType.SEQUENCE)
+	- TABLE : Hibernate가 DB 테이블을 사용하여 pk값 생성. pk 값 생성을 위한 별도 테이블 설정 필요.
+	- SEQUENCE : Sequence Object를 이용하여 PK 값 생성. 오라클 같은 Sequence를 지원하는 DB에서만 사용 가능.
+	- IDENTITY : auto_increment나 IDENTITY를 이용하여 pk 생성. MySQL같은 DB를 이용할 때 설정함.
+	- AUTO : Hibernate가 사용 중인 DB에 맞게 자동으로 pk 값 생성. strategy 속성 설정하지 않으면 default로 적용됨
+	
+	// @Temporal(TemporalType.DATE)
+	java.util.Date 타입 날짜 데이터 매핑 시 사용
+	- DATE : 날짜 정보 출력
+	- TIME : 시간 정보 출력
+	- TIMESTAMP : 날짜, 시간 정보 출력
+	
+	// EntityManager가 제공하는CRUD 기능 메소드
+	-----------------------------------------------------------------------------------------------------
+	|	메소드												|				설명							|
+	-----------------------------------------------------------------------------------------------------
+	| persist(Object entity)								| 엔티티 영속화(insert)							|
+	-----------------------------------------------------------------------------------------------------
+	| merge(Object entity)									| 준영속 상태의 엔티티를 영속화(update)				|
+	-----------------------------------------------------------------------------------------------------
+	| remove(Object entity)									| 영속 상태의 엔티티 제거							|
+	-----------------------------------------------------------------------------------------------------
+	| find(Class<T> entityClass, Object primaryKey)			| 하나의 엔티티 검색(select one)					|
+	-----------------------------------------------------------------------------------------------------
+	| createQuery(String qlString, Class<T> resultClass)	| JPQL에 해당하는 엔티티 목록 검색(select list)		|
+	-----------------------------------------------------------------------------------------------------	
+	
+	
+	<!-- JPA, Hibernate -->
+	<dependency>
+		<groupId>org.hibernate</groupId>
+		<artifactId>hibernate-entitymanager</artifactId>
+		<version>5.1.0.Final</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-orm</artifactId>
+		<version>${org.springframework-version}</version>
+	</dependency>
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
