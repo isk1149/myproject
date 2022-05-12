@@ -20,12 +20,12 @@
 <table border="1" cellpadding="0" cellspacing="0">
 	<tr>
 		<td bgcolor="orange"><spring:message code="message.user.login.id"/></td>
-		<td><input type="text" name="id"/></td><!-- value="${userVO.id}" -->
+		<td><input type="text" name="id"/></td><!-- value="${usersVO.id}" -->
 	</tr>
 	
 	<tr>
 		<td bgcolor="orange"><spring:message code="message.user.login.password"/></td>
-		<td><input type="password" name="password"/></td><!-- value="${userVO.password}" -->
+		<td><input type="password" name="password"/></td><!-- value="${usersVO.password}" -->
 	</tr>
 	
 	<tr>

@@ -8,7 +8,7 @@
 </head>
 <body bgcolor="#ffffff" text="#000000">
 <table width="100%" border="1" cellspacing="0" cellpadding="0">
-	<tr><td align="center" bgcolor="orange"><b>기본 에러 화면입니다.</b></td></tr>
+	<tr><td align="center" bgcolor="orange"><b>arithmetic 에러 화면입니다.</b></td></tr>
 </table>
 <br>
 <table width="100%" border="1" cellspacing="0" cellpadding="0" align="center">

@@ -9,8 +9,8 @@ import com.myproject.webapp.biz.users.UsersVO;
 @Service
 public class UsersServiceImpl implements UsersService {
 	@Autowired
-	//private UserDAOSpring userDAO;
-	private UsersDAOJPA userDAO;
+	private UsersDAOSpring userDAO;
+	//private UsersDAOJPA userDAO;
 	
 	@Override
 	public UsersVO getUser(UsersVO vo) {
