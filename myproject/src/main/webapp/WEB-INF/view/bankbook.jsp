@@ -17,6 +17,13 @@
 </head>
 <jsp:include page="/header.jspf" flush="false"></jsp:include>
 <body>
-bankbook.jsp 페이지입니다.
+<div style="text-align:right">
+	<c:if test="${empty user}"><a href="login.do" >[로그인]</a></c:if>
+	<c:if test="${!empty user}"><a href="logout.do">[로그아웃]</a></c:if>
+</div>
+${user.user_nm}님, 예금 정보입니다.<br><br>
+[계좌번호]<br>
+<b>${accountNo}</b>
+
 </body>
 </html>

@@ -23,7 +23,8 @@ public class LoginController {
 	
 	@RequestMapping(value="/login.do", method=RequestMethod.GET)
 	public String loginView(UserVO vo, HttpSession session) { 
-		vo.setUser_id("");
+		vo.setUser_id("hong");
+		vo.setPwd("gildong");
 		return "/WEB-INF/view/login.jsp";
 	}
 	
@@ -41,7 +42,7 @@ public class LoginController {
 		
 		UserVO user = userService.getUserVO(vo);
 		if (user != vo) {
-			session.setAttribute("userName", user.getUser_nm());
+			session.setAttribute("user", user);
 			return "main.jsp";
 		}
 		

@@ -15,9 +15,8 @@ public class UserVO {
 	@Id
 	private String user_id;
 	private String user_nm;
-	//@Column(nullable=false)
 	private String pwd;
-	@Temporal(TemporalType.DATE)
+	//@Temporal(TemporalType.DATE)
 	private Date create_dt;
 	
 	public String getUser_id() {

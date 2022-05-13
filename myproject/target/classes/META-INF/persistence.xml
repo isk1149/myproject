@@ -5,6 +5,7 @@
 		<class>com.myproject.webapp.biz.users.UsersVO</class>
 		
 		<class>com.myproject.webapp.biz.user.UserVO</class>
+		<class>com.myproject.webapp.biz.bankbook.AccountVO</class>
 		<!-- JPA(Java Persistence API)는 모든 ORM(Object-Relation Mapping) 구현체(ORM 프레임워크)들의 공통 인터페이스를 제공한다. -->
 		
 		<properties>
@@ -25,7 +26,7 @@
 			<property name="hibernate.format_sql" value="true"/><!-- sql 출력 시 일정한 포맷으로 출력 -->
 			<property name="hibernate.use_sql_comments" value="false"/><!-- sql에 포함된 주석도 출력 -->
 			<!-- <property name="hibernate.id.new_generator_mappings" value="true"/> --><!-- 새로운 키 생성 전략 사용 -->
-			<!-- <property name="hibernate.hbm2ddl.auto" value="create"/> --><!-- 테이블 생성이나 수정, 삭제 같은 ddl 구문 처리 방법 -->
+			<property name="hibernate.hbm2ddl.auto" value="none"/><!-- 테이블 생성이나 수정, 삭제 같은 ddl 구문 처리 방법 -->
 		</properties>
 	</persistence-unit>
 </persistence>

@@ -10,4 +10,5 @@ public class PointcutCommon {
 	
 	@Pointcut("execution( * com.myproject.webapp.biz..*Impl.get*(..) )")
 	public void getPointcut() {}
+
 }
