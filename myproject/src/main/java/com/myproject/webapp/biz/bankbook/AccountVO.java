@@ -19,8 +19,7 @@ public class AccountVO {
     @Id @Column(name="ACCT_NO")
     private String accountNo;
     
-    @ManyToOne
-    @JoinColumn(name="USER_ID")
+    @ManyToOne @JoinColumn(name="USER_ID")
     private UserVO user;
     
     @Column(name="CREATE_DT")

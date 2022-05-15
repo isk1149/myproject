@@ -48,32 +48,33 @@ create table ACCOUNT_TB (
 );
 
 create table INTEREST_TB (
-    ACCT_NO 				varchar2(10),
+	INTEREST_ID				number(19,0),
+    ACCT_NO 				varchar2(10)	not null,
+    LAST_APPLY_DAY			date			not null,
     APPLY_CNT 				number(3) 		not null,
-    INTEREST 				number(15) 		not null,
-    constraint BANKBOOK_INTEREST_TB_PK primary key (ACCT_NO)
+    INTEREST 				number(19,0)	not null,
+    constraint INTEREST_TB_PK primary key (INTEREST_ID)
 );
 
 create table TRANSACTION_HISTORY_TB ( -- 생각해볼것
-	TRANSACTION_HISTORY_ID
-	BANK_CD varchar2(6),
-	BANK_NM varchar2(12) not null,
-    ACCT_NO varchar2(10),
-    TX_DT date,
-    TX_BANK_CD varchar2(6),
-    TX_ACCT_NO varchar2(10),
+	TRANSACTION_HISTORY_ID	number(19,0),
+    ACCT_NO varchar2(10) not null,
+    TX_DT date not null,
+    TX_BANK_CD varchar2(6) not null,
+    TX_BANK_NM varchar2(12) not null,
+    TX_ACCT_NO varchar2(10) not null,
     TX_AMT number(15) not null,
     IO_GB varchar2(6) not null,
-    constraint TRANSACTION_HISTORY_TB_PK primary key (BANK_CD, ACCT_NO, TX_DT, TX_BANK_CD, TX_ACCT_NO)
+    constraint TRANSACTION_HISTORY_TB_PK primary key (TRANSACTION_HISTORY_ID)
 );
 
 insert into BANK_TB values ('000001','대한은행');
 insert into USER_TB values ('hong', '홍길동', 'gildong', sysdate);
 insert into USER_TB values ('kim', '김철수', 'chulsoo', sysdate);
-insert into ACCOUNT_TB values ('0000003402', 'hong', sysdate, 0, 2.0, 100000000, 0.1);
-insert into ACCOUNT_TB values ('0000006747', 'kim', sysdate, 0, 2.0, 100000000, 0.1);
-insert into INTEREST_TB values('0000003402', 0, 0);
-insert into INTEREST_TB values('0000006747', 0, 0);
+insert into ACCOUNT_TB values ('0000003402', 'hong', sysdate, 100000000, 2.0, 100000000, 0.1);
+insert into ACCOUNT_TB values ('0000006747', 'kim', sysdate, 100000000, 2.0, 100000000, 0.1);
+insert into INTEREST_TB values(1, '0000003402', sysdate, 0, 0);
+insert into INTEREST_TB values(2, '0000006747', sysdate, 0, 0);
 
 drop table BANK_TB;
 drop table USER_TB;

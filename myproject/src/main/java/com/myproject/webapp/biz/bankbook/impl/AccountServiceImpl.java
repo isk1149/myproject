@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.myproject.webapp.biz.bankbook.AccountService;
 import com.myproject.webapp.biz.bankbook.AccountVO;
+import com.myproject.webapp.biz.bankbook.InterestVO;
 import com.myproject.webapp.biz.user.UserVO;
 
 @Service("AccountService")
@@ -16,5 +17,10 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public AccountVO getAccount(UserVO vo) {
 		return accountDAO.getAccount(vo);
+	}
+
+	@Override
+	public void getInterest(AccountVO account, InterestVO interest) {
+		accountDAO.getInterest(account, interest);
 	}
 }

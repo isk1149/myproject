@@ -4,8 +4,11 @@
 		<class>com.myproject.webapp.biz.board.BoardVO</class> <!-- 엔티티 클래스 지정 -->
 		<class>com.myproject.webapp.biz.users.UsersVO</class>
 		
+		<class>com.myproject.webapp.biz.bank.BankVO</class>
 		<class>com.myproject.webapp.biz.user.UserVO</class>
 		<class>com.myproject.webapp.biz.bankbook.AccountVO</class>
+		<class>com.myproject.webapp.biz.bankbook.InterestVO</class>
+		<class>com.myproject.webapp.biz.bankbook.TransactionHistoryVO</class>
 		<!-- JPA(Java Persistence API)는 모든 ORM(Object-Relation Mapping) 구현체(ORM 프레임워크)들의 공통 인터페이스를 제공한다. -->
 		
 		<properties>
