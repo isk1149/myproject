@@ -6,23 +6,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.myproject.webapp.biz.bank.BankService;
+import com.myproject.webapp.biz.bank.BankVO;
 import com.myproject.webapp.biz.bankbook.AccountService;
 import com.myproject.webapp.biz.bankbook.AccountVO;
 import com.myproject.webapp.biz.bankbook.InterestService;
 import com.myproject.webapp.biz.bankbook.InterestVO;
+import com.myproject.webapp.biz.bankbook.TransactionHistoryService;
 import com.myproject.webapp.biz.user.UserVO;
 import com.myproject.webapp.util.AccountNumberDashFormat;
 import com.myproject.webapp.util.MoneyCommaFormat;
 
 @Controller
 public class BankbookController {
-	
+	@Autowired
+	private BankService bankService;
 	@Autowired
 	private AccountService accountService;
 	@Autowired
 	private InterestService interestService;
+	@Autowired
+	private TransactionHistoryService txhisToryService;
 	
 	@RequestMapping(value="/bankbook.do")
 	public String getBankbook(Model model, HttpSession session) {
@@ -51,8 +56,17 @@ public class BankbookController {
 		AccountVO account = accountService.getAccount(user);
 		InterestVO interest = interestService.getInterest(account);
 		
+		// 이자 0인 경우 처리
+		if (interest.getInterest() < 1L)
+			return "bankbook.do";
+		
 		accountService.receiveInterest(account, interest);
+		
+		BankVO bank = bankService.getBank();
+		txhisToryService.receiveInterest(bank, account, interest);
+		
 		interestService.initInterest(interest);
+		
 		return "bankbook.do";
 	}
 }

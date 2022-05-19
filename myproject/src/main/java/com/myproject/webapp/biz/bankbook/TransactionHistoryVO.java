@@ -4,20 +4,24 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
-import com.myproject.webapp.biz.bank.BankVO;
 
 @Entity
 @Table(name="TRANSACTION_HISTORY_TB")
+@SequenceGenerator( 
+		 name = "TRANSACTIONHISTORY_SEQUENCE_GENERATOR", 
+		 sequenceName = "TRANSACTIONHISTORY_SEQUENCE", //매핑할 데이터베이스 시퀀스 이름
+		 initialValue = 1, allocationSize = 1) 
 public class TransactionHistoryVO {
-	
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TRANSACTIONHISTORY_SEQUENCE_GENERATOR")
 	@Id @Column(name="TRANSACTION_HISTORY_ID")
 	private Long id;
-	
 	
 	@ManyToOne @JoinColumn(name="ACCT_NO")
 	private AccountVO account;
@@ -25,14 +29,17 @@ public class TransactionHistoryVO {
 	@Column(name="TX_DT")
 	private Date txDate;
 	
-	@ManyToOne @JoinColumn(name="TX_BANK_CD")
-	private BankVO txBank;
+	@Column(name="TX_BANK_CD")
+	private String txBank;
 	
 	@Column(name="TX_BANK_NM")
 	private String txBankName;
 	
 	@Column(name="TX_ACCT_NO")
 	private String txAccountNo;
+	
+	@Column(name="TX_ACCT_NM")
+	private String txAccountName;
 	
 	@Column(name="TX_AMT")
 	private Long txAmount;
@@ -58,10 +65,10 @@ public class TransactionHistoryVO {
 	public void setTxDate(Date txDate) {
 		this.txDate = txDate;
 	}
-	public BankVO getTxBank() {
+	public String getTxBank() {
 		return txBank;
 	}
-	public void setTxBank(BankVO txBank) {
+	public void setTxBank(String txBank) {
 		this.txBank = txBank;
 	}
 	public String getTxBankName() {
@@ -75,6 +82,12 @@ public class TransactionHistoryVO {
 	}
 	public void setTxAccountNo(String txAccountNo) {
 		this.txAccountNo = txAccountNo;
+	}
+	public String getTxAccountName() {
+		return txAccountName;
+	}
+	public void setTxAccountName(String txAccountName) {
+		this.txAccountName = txAccountName;
 	}
 	public Long getTxAmount() {
 		return txAmount;

@@ -58,15 +58,25 @@ create table INTEREST_TB (
 
 create table TRANSACTION_HISTORY_TB ( -- 생각해볼것
 	TRANSACTION_HISTORY_ID	number(19,0),
-    ACCT_NO varchar2(10) not null,
-    TX_DT date not null,
-    TX_BANK_CD varchar2(6) not null,
-    TX_BANK_NM varchar2(12) not null,
-    TX_ACCT_NO varchar2(10) not null,
-    TX_AMT number(15) not null,
-    IO_GB varchar2(6) not null,
+    ACCT_NO 				varchar2(10) not null,
+    TX_DT 					date not null,
+    TX_BANK_CD 				varchar2(6) not null,
+    TX_BANK_NM 				varchar2(12) not null,
+    TX_ACCT_NO 				varchar2(10) not null,
+    TX_ACCT_NM 				varchar2(30) not null,
+    TX_AMT 					number(15) not null,
+    IO_GB 					varchar2(6) not null,
     constraint TRANSACTION_HISTORY_TB_PK primary key (TRANSACTION_HISTORY_ID)
 );
+
+CREATE SEQUENCE TRANSACTIONHISTORY_SEQUENCE
+       INCREMENT BY 1
+       START WITH 1
+       MINVALUE 1
+       MAXVALUE 99999
+       NOCYCLE
+       NOCACHE
+       NOORDER;
 
 insert into BANK_TB values ('000001','대한은행');
 insert into USER_TB values ('hong', '홍길동', 'gildong', sysdate);

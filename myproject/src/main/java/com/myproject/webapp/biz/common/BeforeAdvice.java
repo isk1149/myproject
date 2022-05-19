@@ -14,13 +14,15 @@ public class BeforeAdvice {
 	public void beforeLog(JoinPoint jp) {
 		String method = jp.getSignature().getName();
 		Object[] args = jp.getArgs();
-		System.out.println("[Before Advice] " + method + "() 메소드 args 정보 : " + args[0].toString());
+		if (args.length > 0)
+			System.out.println("[Before Advice] " + method + "() 메소드 args 정보 : " + args[0].toString());
 	}
 	
 	@Before("PointcutCommon.getPointcut()")
 	public void beforeGetLog(JoinPoint jp) {
 		String method = jp.getSignature().getName();
 		Object[] args = jp.getArgs();
-		System.out.println("[Before Advice] " + method + "() 메소드 args 정보 : " + args[0].toString());
+		if (args.length > 0)
+			System.out.println("[Before Advice] " + method + "() 메소드 args 정보 : " + args[0].toString());
 	}
 }

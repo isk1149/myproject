@@ -1,7 +1,5 @@
 package com.myproject.webapp.biz.bank.impl;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +13,7 @@ public class BankServiceImpl implements BankService {
 	private BankDAOJPA bankDAO;
 	
 	@Override
-	public List<BankVO> getBank() {
+	public BankVO getBank() {
 		return bankDAO.getBank();
 	}
 }

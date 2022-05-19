@@ -2,9 +2,13 @@ package com.myproject.webapp.biz.common;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.Aspect;
+import org.springframework.stereotype.Service;
 
 import com.myproject.webapp.biz.users.UsersVO;
 
+@Service
+@Aspect
 public class AfterReturningAdvice {
 	@AfterReturning(pointcut="PointcutCommon.getPointcut()", returning="returnObj")
 	public void afterLog(JoinPoint jp, Object returnObj) {
