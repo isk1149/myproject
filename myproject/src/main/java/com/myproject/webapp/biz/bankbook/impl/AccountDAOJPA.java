@@ -23,9 +23,13 @@ public class AccountDAOJPA {
 		return account;
 	}
 	
-	public void getInterest(AccountVO account, InterestVO interest) {
+	public void receiveInterest(AccountVO account, InterestVO interest) {
 		long deposit = account.getDeposit() + interest.getInterest();
 		account.setDeposit(deposit);
+		em.merge(account);
+	}
+	
+	public void updateAccount(AccountVO account) {
 		em.merge(account);
 	}
 }

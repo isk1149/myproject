@@ -4,5 +4,5 @@ import com.myproject.webapp.biz.user.UserVO;
 
 public interface AccountService {
 	AccountVO getAccount(UserVO vo);
-	void getInterest(AccountVO account, InterestVO interest);
+	void receiveInterest(AccountVO account, InterestVO interest);
 }

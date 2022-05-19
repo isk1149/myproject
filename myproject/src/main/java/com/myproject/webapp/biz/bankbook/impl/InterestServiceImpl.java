@@ -25,8 +25,6 @@ public class InterestServiceImpl implements InterestService {
 
 	@Override
 	public void calculateInterest(AccountVO account, InterestVO interest) {
-		
-		// 이자 계산
 		interestDAO.calculateInterest(account, interest);
 	}
 

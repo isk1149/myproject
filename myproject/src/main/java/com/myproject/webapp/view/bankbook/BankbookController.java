@@ -50,9 +50,9 @@ public class BankbookController {
 		UserVO user = (UserVO) session.getAttribute("user");
 		AccountVO account = accountService.getAccount(user);
 		InterestVO interest = interestService.getInterest(account);
-		accountService.getInterest(account, interest);
-		interestService.initInterest(interest);
 		
+		accountService.receiveInterest(account, interest);
+		interestService.initInterest(interest);
 		return "bankbook.do";
 	}
 }

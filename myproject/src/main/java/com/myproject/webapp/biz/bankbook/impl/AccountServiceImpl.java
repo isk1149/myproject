@@ -20,7 +20,7 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public void getInterest(AccountVO account, InterestVO interest) {
-		accountDAO.getInterest(account, interest);
+	public void receiveInterest(AccountVO account, InterestVO interest) {
+		accountDAO.receiveInterest(account, interest);
 	}
 }
