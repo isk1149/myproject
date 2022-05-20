@@ -35,8 +35,8 @@ table, th, td {
 	<td align="center" bgcolor="#DAE3E6">은행</td>
 	<td align="center">
 		<select style="width: 68%;" name="bank">
-		<c:forEach items="${bankMap}" var="bank">
-			<option value="${bank.value}">${bank.key}
+		 <c:forEach items="${bankList}" var="bank">
+			<option value="${bank.code}">${bank.name}
 		</c:forEach>
 		</select>
 	</td>
@@ -56,7 +56,7 @@ table, th, td {
 </form>
 
 <br><br>
-{ 대한은행 김철수 계좌 : 0000006747 }<br> 
+{ 대한은행 김철수 계좌 : 0000006747 <br> 
 &nbsp 케이은행 김단비 계좌 : 0000000928 }
 </div>
 </div>

@@ -13,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.myproject.webapp.biz.association.bank.BankAssociationService;
+import com.myproject.webapp.biz.association.bank.BankAssociationVO;
 import com.myproject.webapp.biz.bank.BankService;
 import com.myproject.webapp.biz.bank.BankVO;
 import com.myproject.webapp.biz.bankbook.AccountService;
@@ -36,6 +38,8 @@ public class BankbookController {
 	private InterestService interestService;
 	@Autowired
 	private TransactionHistoryService txHistoryService;
+	@Autowired
+	private BankAssociationService bankAssocService;
 	
 	@RequestMapping(value="/bankbook.do")
 	public String getBankbook(Model model, HttpSession session) {
@@ -95,13 +99,11 @@ public class BankbookController {
 		return "bankbook.do";
 	}
 	
-	// 검색 조건 목록 설정
-	@ModelAttribute("bankMap")
-	public Map<String, String> searchBankMap() {
-		Map<String, String> map = new HashMap<>();
-		map.put("대한은행", "000001");
-		map.put("케이은행", "000002");
-		return map;
+	// 송금 시 은행 목록 설정
+	@ModelAttribute("bankList")
+	public List<BankAssociationVO> searchBankMap() {
+		List<BankAssociationVO> list = bankAssocService.getBankList();
+		return list;
 	}
 	
 	@RequestMapping(value="/remit.do")
