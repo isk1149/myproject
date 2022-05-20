@@ -77,6 +77,16 @@ CREATE SEQUENCE TRANSACTIONHISTORY_SEQUENCE
        NOCYCLE
        NOCACHE
        NOORDER;
+       
+create table BANK_ASSOCIATION_TB (
+	BANK_CD varchar2(6),
+	BANK_NM varchar2(12) not null,
+	constraint BANK_ASSOCIATION_TB_PK primary key (BANK_CD)
+);
+
+
+insert into BANK_ASSOCIATION_TB values('000001', '대한은행');
+insert into BANK_ASSOCIATION_TB values('000002', '케이은행');
 
 insert into BANK_TB values ('000001','대한은행');
 insert into USER_TB values ('hong', '홍길동', 'gildong', sysdate);

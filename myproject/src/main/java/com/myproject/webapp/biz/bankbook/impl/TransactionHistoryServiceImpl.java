@@ -18,8 +18,8 @@ public class TransactionHistoryServiceImpl implements TransactionHistoryService{
 	private TransactionHistoryDAOJPA txHistoryDAO;
 	
 	@Override
-	public List<TransactionHistoryVO> getTransactionList() {
-		return null;
+	public List<TransactionHistoryVO> getTransactionList(AccountVO account) {
+		return txHistoryDAO.getTransactionList(account);
 	}
 
 	@Override

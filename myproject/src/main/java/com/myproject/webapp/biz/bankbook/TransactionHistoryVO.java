@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="TRANSACTION_HISTORY_TB")
@@ -46,6 +47,12 @@ public class TransactionHistoryVO {
 	
 	@Column(name="IO_GB")
 	private String IO;
+	
+	@Transient
+	private String txStringDate;
+	
+	@Transient
+	private String txStringAmount;
 	
 	public Long getId() {
 		return id;
@@ -100,5 +107,17 @@ public class TransactionHistoryVO {
 	}
 	public void setIO(String iO) {
 		IO = iO;
+	}
+	public String getTxStringDate() {
+		return txStringDate;
+	}
+	public void setTxStringDate(String txStringDate) {
+		this.txStringDate = txStringDate;
+	}
+	public String getTxStringAmount() {
+		return txStringAmount;
+	}
+	public void setTxStringAmount(String txStringAmount) {
+		this.txStringAmount = txStringAmount;
 	}
 }

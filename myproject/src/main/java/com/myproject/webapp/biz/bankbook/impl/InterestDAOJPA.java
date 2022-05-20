@@ -48,13 +48,14 @@ public class InterestDAOJPA {
 		double rate = account.getRate();
 		double overRate = account.getOverRate();
 		long addInterest;
+		System.out.println();
 		if (deposit > rateLimitAmount) {
 			addInterest = 
-				(long)( (rateLimitAmount * (overRate / 100) / 365) + ((deposit - rateLimitAmount) * (overRate / 100) / 365) );
+				(long)( (rateLimitAmount * (rate / 100) / 365) + ((deposit - rateLimitAmount) * (overRate / 100) / 365) );
 		} else {
 			addInterest = (long)(deposit * (rate / 100) / 365);
 		}
-		
+		addInterest = (long) Math.round(addInterest * 0.846);
 		interest.setLastApplyDay(new java.util.Date());
 		interest.setApplyCount(interest.getApplyCount() + 1);
 		interest.setInterest(interest.getInterest() + addInterest);

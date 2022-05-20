@@ -22,8 +22,14 @@ public class TransactionHistoryDAOJPA {
 	@PersistenceContext
 	private EntityManager em;
 
-	public List<TransactionHistoryVO> getTransactionList() {
-		return null;
+	public List<TransactionHistoryVO> getTransactionList(AccountVO account) {
+		List<TransactionHistoryVO> txList = em.createQuery("select t " +
+															 "from TransactionHistoryVO as t " + 
+															"where t.account = :account " +
+														 "order by t.txDate desc")
+												.setParameter("account", account)
+												.getResultList();
+		return txList;
 	};
 	
 	public void receiveInterest(BankVO bank, AccountVO account, InterestVO interest) {
