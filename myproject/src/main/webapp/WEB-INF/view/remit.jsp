@@ -34,6 +34,7 @@ table, th, td {
 <tr height="30px">
 	<td align="center" bgcolor="#DAE3E6">출금계좌</td>
 	<td align="center">${accountNo}</td>
+	<!-- <input type="hidden" value="${accountNo}" name="accountNo"> -->
 </tr>
 <tr height="30px">
 	<td align="center" bgcolor="#DAE3E6">은행</td>
@@ -47,7 +48,7 @@ table, th, td {
 </tr>
 <tr height="30px">
 	<td align="center" bgcolor="#DAE3E6">계좌번호</td>
-	<td align="center"><input type="text" name="txAccountNo" size="20" maxlength="10"></td>
+	<td align="center"><input type="number" name="txAccountNo"></td>
 </tr>
 <tr height="30px">
 	<td align="center" bgcolor="#DAE3E6">이체금액</td>
@@ -58,6 +59,8 @@ table, th, td {
 </tr>
 </table>
 </form>
+<c:if test="${error.noAccount}">계좌를 입력해주세요.<br></c:if>
+<c:if test="${error.noAmount}">금액을 입력해주세요.<br></c:if>
 
 <br><br>
 { 대한은행 김철수 계좌 : 0000006747 <br> 

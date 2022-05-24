@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.myproject.webapp.biz.association.bank.BankAssociationAccountService;
 import com.myproject.webapp.biz.association.bank.BankAssociationService;
 import com.myproject.webapp.biz.association.bank.BankAssociationVO;
 import com.myproject.webapp.biz.bank.BankService;
@@ -40,6 +42,8 @@ public class BankbookController {
 	private TransactionHistoryService txHistoryService;
 	@Autowired
 	private BankAssociationService bankAssocService;
+	@Autowired
+	private BankAssociationAccountService bankAssocAcctService;
 	
 	@RequestMapping(value="/bankbook.do")
 	public String getBankbook(Model model, HttpSession session) {
@@ -119,11 +123,48 @@ public class BankbookController {
 	}
 	
 	@RequestMapping(value="/remitProgress.do")
-	public String remitAccountCheck(Model model, HttpSession session) {
+	public String remitAccountCheck(Model model, HttpServletRequest request, HttpSession session) {
 		if (session.getAttribute("user") == null)
 			return "/WEB-INF/view/login.jsp";
 		
+		Map<String, Boolean> error = new HashMap<>();
+		request.setAttribute("error", error);
 		
+		String bank = request.getParameter("bank");
+		
+		String account = request.getParameter("txAccountNo");
+		if (account == null || account.equals("")) {
+			error.put("noAccount", Boolean.TRUE);
+			return "/WEB-INF/view/remit.jsp";
+		}
+		
+		String amount = request.getParameter("txAmount");
+		if (amount == null || amount.equals("")) {
+			error.put("noAmount", Boolean.TRUE);
+			return "/WEB-INF/view/remit.jsp";
+		}
+		
+		switch(bank) {
+		case "000002" :
+			BankAssociationVO txBank = new BankAssociationVO();
+			txBank.setCode(bank);
+			break;
+		
+		}
+		
+		
+		
+		
+		
+		
+		
+		long txAmount = Long.parseLong(amount);
+		
+		/*
+		 * if (bankcode == null || accountNumber == null ||
+		 * (accountNumber.trim()).equals("")) { errors.put("noBankCodeOrAccountNumber",
+		 * Boolean.TRUE); return FORM_VIEW; }
+		 */
 		
 		
 		return "/WEB-INF/view/remitProgress.jsp";

@@ -79,14 +79,24 @@ CREATE SEQUENCE TRANSACTIONHISTORY_SEQUENCE
        NOORDER;
        
 create table BANK_ASSOCIATION_TB (
-	BANK_CD varchar2(6),
-	BANK_NM varchar2(12) not null,
+	BANK_CD 	varchar2(6),
+	BANK_NM 	varchar2(12) not null,
 	constraint BANK_ASSOCIATION_TB_PK primary key (BANK_CD)
 );
 
+create table BANK_ASSOCIATION_ACCOUNT_TB (
+	BANK_ASSOCIATION_ACCOUNT_ID 	number(19,0),
+	BANK_CD 						varchar2(6),
+	BANK_NM 						varchar2(12) not null,
+	ACCT_NO 						varchar2(10) not null,
+	ACCT_NM							varchar2(30) not null,
+	constraint BANK_ASSOCIATION_ACCOUNT_TB_PK primary key (BANK_ASSOCIATION_ACCOUNT_ID)
+);
 
 insert into BANK_ASSOCIATION_TB values('000001', '대한은행');
 insert into BANK_ASSOCIATION_TB values('000002', '케이은행');
+
+insert into BANK_ASSOCIATION_ACCOUNT_TB values(1, '000001', '케이은행', '0000000928', '김단비');
 
 insert into BANK_TB values ('000001','대한은행');
 insert into USER_TB values ('hong', '홍길동', 'gildong', sysdate);

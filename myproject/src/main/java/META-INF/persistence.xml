@@ -10,6 +10,7 @@
 		<class>com.myproject.webapp.biz.bankbook.InterestVO</class>
 		<class>com.myproject.webapp.biz.bankbook.TransactionHistoryVO</class>
 		<class>com.myproject.webapp.biz.association.bank.BankAssociationVO</class>
+		<class>com.myproject.webapp.biz.association.bank.BankAssociationAccountVO</class>
 		<!-- JPA(Java Persistence API)는 모든 ORM(Object-Relation Mapping) 구현체(ORM 프레임워크)들의 공통 인터페이스를 제공한다. -->
 		
 		<properties>
