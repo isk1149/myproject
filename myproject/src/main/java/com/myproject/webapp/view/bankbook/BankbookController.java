@@ -113,11 +113,18 @@ public class BankbookController {
 		
 		UserVO user = (UserVO) session.getAttribute("user");
 		AccountVO account = accountService.getAccount(user);
+		model.addAttribute("accountNo", AccountNumberDashFormat.format(account.getAccountNo()));
 		
 		return "/WEB-INF/view/remit.jsp";
 	}
+	
 	@RequestMapping(value="/remitProgress.do")
 	public String remitAccountCheck(Model model, HttpSession session) {
+		if (session.getAttribute("user") == null)
+			return "/WEB-INF/view/login.jsp";
+		
+		
+		
 		
 		return "/WEB-INF/view/remitProgress.jsp";
 	}

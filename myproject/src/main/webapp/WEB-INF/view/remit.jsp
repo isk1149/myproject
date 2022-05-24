@@ -32,6 +32,10 @@ table, th, td {
 <form action="remitProgress.do" method="post">
 <table border="1" cellpadding="0" cellspacing="0" width="70%" style="margin-left: auto; margin-right: auto;">
 <tr height="30px">
+	<td align="center" bgcolor="#DAE3E6">출금계좌</td>
+	<td align="center">${accountNo}</td>
+</tr>
+<tr height="30px">
 	<td align="center" bgcolor="#DAE3E6">은행</td>
 	<td align="center">
 		<select style="width: 68%;" name="bank">
@@ -43,11 +47,11 @@ table, th, td {
 </tr>
 <tr height="30px">
 	<td align="center" bgcolor="#DAE3E6">계좌번호</td>
-	<td align="center"><input type="text" name="accountNo" size="20" maxlength="10"></td>
+	<td align="center"><input type="text" name="txAccountNo" size="20" maxlength="10"></td>
 </tr>
 <tr height="30px">
 	<td align="center" bgcolor="#DAE3E6">이체금액</td>
-	<td align="center"><input type="number" name="amount"></td>
+	<td align="center"><input type="number" name="txAmount"></td>
 </tr>
 <tr height="50px">
 	<td align="center" colspan="2"><input type="submit" value="확인"></td>
