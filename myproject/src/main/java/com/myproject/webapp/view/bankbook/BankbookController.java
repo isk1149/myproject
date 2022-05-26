@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.NoResultException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.myproject.webapp.biz.association.bank.BankAssociationAccountService;
+import com.myproject.webapp.biz.association.bank.BankAssociationAccountVO;
 import com.myproject.webapp.biz.association.bank.BankAssociationService;
 import com.myproject.webapp.biz.association.bank.BankAssociationVO;
 import com.myproject.webapp.biz.bank.BankService;
@@ -128,13 +130,13 @@ public class BankbookController {
 			return "/WEB-INF/view/login.jsp";
 		
 		Map<String, Boolean> error = new HashMap<>();
-		request.setAttribute("error", error);
+		model.addAttribute("error", error);
 		
 		String bank = request.getParameter("bank");
 		
-		String account = request.getParameter("txAccountNo");
-		if (account == null || account.equals("")) {
-			error.put("noAccount", Boolean.TRUE);
+		String txAccount = request.getParameter("txAccountNo");
+		if (txAccount == null || txAccount.equals("")) {
+			error.put("emptyAccount", Boolean.TRUE);
 			return "/WEB-INF/view/remit.jsp";
 		}
 		
@@ -144,16 +146,15 @@ public class BankbookController {
 			return "/WEB-INF/view/remit.jsp";
 		}
 		
-		switch(bank) {
-		case "000002" :
-			BankAssociationVO txBank = new BankAssociationVO();
-			txBank.setCode(bank);
-			break;
-		
+		try {
+			BankAssociationAccountVO account = bankAssocAcctService.getAccount(bank, txAccount);
+		} catch (NoResultException e) {
+			//e.printStackTrace();
+			error.put("noAccount", Boolean.TRUE);
+			return "/WEB-INF/view/remit.jsp";
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		
-		
-		
 		
 		
 		

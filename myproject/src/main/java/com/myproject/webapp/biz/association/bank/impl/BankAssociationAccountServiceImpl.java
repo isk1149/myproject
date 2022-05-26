@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.myproject.webapp.biz.association.bank.BankAssociationAccountService;
 import com.myproject.webapp.biz.association.bank.BankAssociationAccountVO;
+import com.myproject.webapp.biz.association.bank.BankAssociationVO;
 
 @Service("BankAssociationAccountService")
 public class BankAssociationAccountServiceImpl implements BankAssociationAccountService {
@@ -13,8 +14,8 @@ public class BankAssociationAccountServiceImpl implements BankAssociationAccount
 	private BankAssociationAccountDAOJPA bankAssocAcctDAO;
 	
 	@Override
-	public BankAssociationAccountVO getAccount(BankAssociationAccountVO vo) {
-		return bankAssocAcctDAO.getAccount(vo);
+	public BankAssociationAccountVO getAccount(String bank, String txAccount) throws Exception {
+		return bankAssocAcctDAO.getAccount(bank, txAccount);
 	}
 
 }

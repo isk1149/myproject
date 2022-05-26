@@ -59,8 +59,9 @@ table, th, td {
 </tr>
 </table>
 </form>
-<c:if test="${error.noAccount}">계좌를 입력해주세요.<br></c:if>
+<c:if test="${error.emptyAccount}">계좌를 입력해주세요.<br></c:if>
 <c:if test="${error.noAmount}">금액을 입력해주세요.<br></c:if>
+<c:if test="${error.noAccount}">존재하지 않는 계좌입니다.<br></c:if>
 
 <br><br>
 { 대한은행 김철수 계좌 : 0000006747 <br> 

@@ -19,4 +19,7 @@ public class BankAssociationDAOJPA {
 		return em.createQuery("select b from BankAssociationVO as b order by b.code").getResultList();
 	}
 	
+	public BankAssociationVO getBank(String bankCode) {
+		return em.find(BankAssociationVO.class, bankCode);
+	}
 }

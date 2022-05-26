@@ -18,4 +18,9 @@ public class BankAssociationServiceImpl implements BankAssociationService {
 	public List<BankAssociationVO> getBankList() {
 		return bankAssocDAO.getBankList();
 	}
+
+	@Override
+	public BankAssociationVO getBank(String bankCode) {
+		return bankAssocDAO.getBank(bankCode);
+	}
 }
