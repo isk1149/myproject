@@ -160,6 +160,10 @@ public class BankbookController {
 		
 		
 		long txAmount = Long.parseLong(amount);
+		if (txAmount == 0) {
+			error.put("noAmount", Boolean.TRUE);
+			return "/WEB-INF/view/remit.jsp";
+		}
 		
 		/*
 		 * if (bankcode == null || accountNumber == null ||
