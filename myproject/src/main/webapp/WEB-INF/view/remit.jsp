@@ -19,10 +19,6 @@ table, th, td {
 <jsp:include page="/header.jspf" flush="false"></jsp:include>
 <body>
 
-<div style="text-align:right">
-	<c:if test="${empty user}"><a href="login.do" >[로그인]</a></c:if>
-	<c:if test="${!empty user}"><a href="logout.do">[로그아웃]</a></c:if>
-</div>
 <div style="width:100%; height:100%; text-align:center;">
 <div style="width:500px; height:100%;  padding: 10px 10px 10px 10px; border:1px solid black; text-align:left; display:inline-block;">
 <center>

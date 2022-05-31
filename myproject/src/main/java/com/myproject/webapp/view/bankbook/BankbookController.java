@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -50,7 +51,7 @@ public class BankbookController {
 	@RequestMapping(value="/bankbook.do")
 	public String getBankbook(Model model, HttpSession session) {
 		if (session.getAttribute("user") == null)
-			return "/WEB-INF/view/login.jsp";
+			return "login.do";;
 		UserVO user = (UserVO) session.getAttribute("user");
 		AccountVO account = accountService.getAccount(user);
 		model.addAttribute("account", account);
@@ -134,8 +135,8 @@ public class BankbookController {
 		
 		String bank = request.getParameter("bank");
 		
-		String txAccount = request.getParameter("txAccountNo");
-		if (txAccount == null || txAccount.equals("")) {
+		String txAccountStr = request.getParameter("txAccountNo");
+		if (txAccountStr == null || txAccountStr.equals("")) {
 			error.put("emptyAccount", Boolean.TRUE);
 			return "/WEB-INF/view/remit.jsp";
 		}
@@ -146,9 +147,10 @@ public class BankbookController {
 			return "/WEB-INF/view/remit.jsp";
 		}
 		
+		BankAssociationAccountVO txAssocAcct = null;
 		try {
-			BankAssociationAccountVO account = bankAssocAcctService.getAccount(bank, txAccount);
-		} catch (NoResultException e) {
+			txAssocAcct = bankAssocAcctService.getAccount(bank, txAccountStr);
+		} catch (NoResultException | NonUniqueResultException e) {
 			//e.printStackTrace();
 			error.put("noAccount", Boolean.TRUE);
 			return "/WEB-INF/view/remit.jsp";
@@ -169,8 +171,43 @@ public class BankbookController {
 			return "/WEB-INF/view/remit.jsp";
 		}
 		
+		//BankVO userBank = bankService.getBank();
+		
+		/*
+		model.addAttribute("userBank", userBank);
+		model.addAttribute("account", account);
+		model.addAttribute("accountNo", AccountNumberDashFormat.format(account.getAccountNo()));
+		model.addAttribute("txAccount", txAccount);
+		model.addAttribute("txAccountNo", AccountNumberDashFormat.format(txAccount.getAccountNo()));
+		model.addAttribute("txAmount", txAmount);
+		model.addAttribute("txAmountFormat", MoneyCommaFormat.format(txAmount));
+		*/
+		TransactionHistoryVO txHistory = new TransactionHistoryVO();
+		//txHistory.setAccount(account);
+		txHistory.setTxBank(txAssocAcct.getBankCode());
+		txHistory.setTxBankName(txAssocAcct.getBankName());
+		txHistory.setTxAccountNo(txAssocAcct.getAccountNo());
+		txHistory.setTxAmount(txAmount);
+		model.addAttribute("transactionHistoryVO", txHistory);
+		model.addAttribute("accountNo", AccountNumberDashFormat.format(account.getAccountNo()));
+		model.addAttribute("txAccountNo", AccountNumberDashFormat.format(txAssocAcct.getAccountNo()));
+		model.addAttribute("txAmountFormat", MoneyCommaFormat.format(txAmount));
+		
 		return "/WEB-INF/view/remitProgress.jsp";
 	}
+	
+	@RequestMapping(value="/remitCheck.do")
+	public String remitCheck(TransactionHistoryVO vo, Model model, HttpSession session) {
+		if (session.getAttribute("user") == null)
+			return "/WEB-INF/view/login.jsp";
+		
+		System.out.println("========================");
+		System.out.println(vo.getTxAccountName());
+		System.out.println("========================");
+		
+		return "/WEB-INF/view/remitProgress.jsp";
+	}
+	
 	
 	@RequestMapping(value="/transactionHistory.do")
 	public String getTransactionHistory(Model model, HttpSession session) {
