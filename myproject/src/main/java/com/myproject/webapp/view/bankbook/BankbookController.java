@@ -156,21 +156,18 @@ public class BankbookController {
 			e.printStackTrace();
 		}
 		
-		
-		
-		
 		long txAmount = Long.parseLong(amount);
 		if (txAmount == 0) {
 			error.put("noAmount", Boolean.TRUE);
 			return "/WEB-INF/view/remit.jsp";
 		}
 		
-		/*
-		 * if (bankcode == null || accountNumber == null ||
-		 * (accountNumber.trim()).equals("")) { errors.put("noBankCodeOrAccountNumber",
-		 * Boolean.TRUE); return FORM_VIEW; }
-		 */
-		
+		UserVO user = (UserVO) session.getAttribute("user");
+		AccountVO account = accountService.getAccount(user);
+		if (txAmount > account.getDeposit()) {
+			error.put("lackDeposit", Boolean.TRUE);
+			return "/WEB-INF/view/remit.jsp";
+		}
 		
 		return "/WEB-INF/view/remitProgress.jsp";
 	}
