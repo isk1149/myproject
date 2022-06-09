@@ -27,4 +27,9 @@ public class TransactionHistoryServiceImpl implements TransactionHistoryService{
 		txHistoryDAO.receiveInterest(bank, account, interest);
 	}
 
+	@Override
+	public void insertTxHistory(AccountVO account, TransactionHistoryVO txHistory) {
+		txHistoryDAO.insertTxHistory(account, txHistory);
+	}
+	
 }

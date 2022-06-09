@@ -1,12 +1,17 @@
 package com.myproject.webapp.view.bankbook;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.Column;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
+import javax.persistence.Transient;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -201,13 +206,13 @@ public class BankbookController {
 		if (session.getAttribute("user") == null)
 			return "/WEB-INF/view/login.jsp";
 		
-		System.out.println("========================");
-		System.out.println(vo.getTxAccountName());
-		System.out.println("========================");
+		UserVO user = (UserVO) session.getAttribute("user");
+		AccountVO account = accountService.getAccount(user);
+		TransactionHistoryVO txHistory = vo;
+		txHistoryService.insertTxHistory(account, txHistory);
 		
-		return "/WEB-INF/view/remitProgress.jsp";
+		return "bankbook.do";
 	}
-	
 	
 	@RequestMapping(value="/transactionHistory.do")
 	public String getTransactionHistory(Model model, HttpSession session) {

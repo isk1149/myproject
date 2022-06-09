@@ -26,7 +26,10 @@
 
 <tr height="30px">
 	<td align="center" bgcolor="#DAE3E6">거래은행</td>
-	<td align="center">${transactionHistoryVO.txBankName}<input type="hidden" value="${transactionHistoryVO.txBank}" name="txBank"></td>
+	<td align="center">${transactionHistoryVO.txBankName}
+					   <input type="hidden" value="${transactionHistoryVO.txBank}" name="txBank">
+					   <input type="hidden" value="${transactionHistoryVO.txBankName}" name="txBankName">
+	</td>
 </tr>
 <tr height="30px">
 	<td align="center" bgcolor="#DAE3E6">거래계좌</td>

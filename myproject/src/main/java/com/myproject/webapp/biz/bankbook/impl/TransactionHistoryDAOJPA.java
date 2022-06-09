@@ -33,17 +33,21 @@ public class TransactionHistoryDAOJPA {
 	};
 	
 	public void receiveInterest(BankVO bank, AccountVO account, InterestVO interest) {
-		TransactionHistoryVO tx = new TransactionHistoryVO();
+		TransactionHistoryVO txHistory = new TransactionHistoryVO();
 		
-		tx.setAccount(account);
-		tx.setTxDate(new java.util.Date());
-		tx.setTxBank(bank.getCode());
-		tx.setTxBankName(bank.getName());
-		tx.setTxAccountNo(account.getAccountNo());
-		tx.setTxAccountName("이자");
-		tx.setTxAmount(interest.getInterest());
-		tx.setIO("입금");
+		txHistory.setAccount(account);
+		txHistory.setTxDate(new java.util.Date());
+		txHistory.setTxBank(bank.getCode());
+		txHistory.setTxBankName(bank.getName());
+		txHistory.setTxAccountNo(account.getAccountNo());
+		txHistory.setTxAccountName("이자");
+		txHistory.setTxAmount(interest.getInterest());
+		txHistory.setIO("입금");
 		
-		em.persist(tx);
+		em.persist(txHistory);
 	};
+	
+	public void insertTxHistory(AccountVO account, TransactionHistoryVO txHistory) {
+		em.persist(txHistory);
+	}
 }
