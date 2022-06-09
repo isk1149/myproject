@@ -48,6 +48,9 @@ public class TransactionHistoryDAOJPA {
 	};
 	
 	public void insertTxHistory(AccountVO account, TransactionHistoryVO txHistory) {
+		txHistory.setAccount(account);
+		txHistory.setTxDate(new java.util.Date());
+		txHistory.setIO("출금");
 		em.persist(txHistory);
 	}
 }
